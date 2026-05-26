@@ -1,0 +1,22 @@
+flowchart TD
+    A([Start]) --> B[Librarian opens Category Management]
+    B --> C{Authorized Librarian?}
+    C -->|No| C1[Access denied] --> Z([End])
+    C -->|Yes| D[Show category table]
+    D --> E{Action?}
+    E -->|Add| F[Enter category name]
+    F --> G{Name valid and <= 50?}
+    G -->|No| G1[Show validation error] --> F
+    G -->|Yes| H[Create category] --> D
+    E -->|Edit inline| I[Update name]
+    I --> J{Name valid and <= 50?}
+    J -->|No| J1[Show validation error] --> I
+    J -->|Yes| K[Save category] --> D
+    E -->|Delete| L{Any books in category?}
+    L -->|Yes| L1[Block delete and show reason] --> D
+    L -->|No| M[Confirm delete]
+    M --> N{Confirmed?}
+    N -->|No| D
+    N -->|Yes| O[Delete category] --> D
+    E -->|Exit| Z
+    Z([End])

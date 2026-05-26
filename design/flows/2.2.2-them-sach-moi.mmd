@@ -1,0 +1,10 @@
+flowchart TD
+    A([Start]) --> B[Librarian clicks Them Sach Moi]
+    B --> C{Authorized Librarian?}
+    C -->|No| C1[Access denied] --> Z([End])
+    C -->|Yes| D[Enter book fields]
+    D --> E{Validation pass?}
+    E -->|No| E1[Show field errors] --> D
+    E -->|Yes| F[Save book with status Co san]
+    F --> G[Show success message]
+    G --> Z([End])

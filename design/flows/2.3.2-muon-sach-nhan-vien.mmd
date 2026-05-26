@@ -1,0 +1,13 @@
+flowchart TD
+    A([Start]) --> B[Librarian opens pending borrow orders]
+    B --> C{Authorized Librarian?}
+    C -->|No| C1[Access denied] --> Z([End])
+    C -->|Yes| D[Select one pending order]
+    D --> E{Decision?}
+    E -->|Xac nhan| F[Set status Da muon]
+    F --> G[Decrease available quantity] --> Z
+    E -->|Tu choi| H[Enter rejection reason required]
+    H --> I{Reason provided?}
+    I -->|No| I1[Show required error] --> H
+    I -->|Yes| J[Set status Bi tu choi and save reason] --> Z
+    Z([End])

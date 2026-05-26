@@ -1,0 +1,12 @@
+flowchart TD
+    A([Start]) --> B[Librarian opens pending fine confirmations]
+    B --> C{Authorized Librarian?}
+    C -->|No| C1[Access denied] --> Z([End])
+    C -->|Yes| D[Open fine detail]
+    D --> E{Payment valid?}
+    E -->|Yes| F[Mark fine Da thanh toan] --> Z
+    E -->|No| G[Enter rejection reason]
+    G --> H{Reason provided?}
+    H -->|No| H1[Show required error] --> G
+    H -->|Yes| I[Set status Tu choi with reason] --> Z
+    Z([End])

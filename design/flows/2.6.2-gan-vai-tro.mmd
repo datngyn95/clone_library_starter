@@ -1,0 +1,9 @@
+flowchart TD
+    A([Start]) --> B[Admin opens User List]
+    B --> C[Select target user]
+    C --> D[Choose role Reader/Librarian/Admin]
+    D --> E{Role change valid?}
+    E -->|No| E1[Show validation or permission error] --> D
+    E -->|Yes| F[Save new role]
+    F --> G[Update access permissions]
+    G --> Z([End])

@@ -1,0 +1,11 @@
+flowchart TD
+    A([Start]) --> B[Reader opens Borrow History]
+    B --> C[Choose borrowed item and click Xin tra sach]
+    C --> D{Already has pending return request?}
+    D -->|Yes| D1[Block duplicate request] --> Z([End])
+    D -->|No| E[Show confirmation modal]
+    E --> F{Confirmed?}
+    F -->|No| Z
+    F -->|Yes| G[Create return request status Cho xac nhan]
+    G --> H[Notify reader to bring physical book]
+    H --> Z([End])

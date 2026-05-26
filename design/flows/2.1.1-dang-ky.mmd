@@ -1,0 +1,22 @@
+flowchart TD
+    A([Start]) --> B["User clicks 'Dang ky'"]
+    B --> C[System displays registration form]
+    C --> D["User enters Email, Ten, Mat khau, Confirm mat khau"]
+    D --> E{Submit form?}
+    E -->|No| D
+    E -->|Yes| F{Email format valid?}
+    F -->|No| F1["Show error: Email khong hop le"] --> D
+    F -->|Yes| G{"Ten not empty and <= 50 chars?"}
+    G -->|No| G1["Show error: Ten bat buoc, toi da 50 ky tu"] --> D
+    G -->|Yes| H{"Mat khau length 8-16 and not empty?"}
+    H -->|No| H1["Show error: Mat khau 8-16 ky tu"] --> D
+    H -->|Yes| I{"Confirm mat khau not empty and matches?"}
+    I -->|No| I1["Show error: Confirm mat khau khong trung"] --> D
+    I -->|Yes| J["Create account with status 'Cho xac nhan'"]
+    J --> K[Generate email verification token]
+    K --> L[Send account verification email]
+    L --> M{Email sent successfully?}
+    M -->|No| N["Show warning: account created, email resend required"]
+    M -->|Yes| O["Show success: check email to verify account"]
+    N --> P([End])
+    O --> P

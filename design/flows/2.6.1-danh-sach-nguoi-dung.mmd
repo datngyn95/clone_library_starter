@@ -1,0 +1,11 @@
+flowchart TD
+    A([Start]) --> B[Admin opens User List]
+    B --> C{Authorized Admin?}
+    C -->|No| C1[Access denied] --> Z([End])
+    C -->|Yes| D[Load users with role and status]
+    D --> E{Action?}
+    E -->|Search email/name| F[Apply search] --> D
+    E -->|Filter by role| G[Apply role filter] --> D
+    E -->|Toggle account status| H[Activate/Deactivate user] --> D
+    E -->|Exit| Z
+    Z([End])

@@ -1,0 +1,9 @@
+flowchart TD
+    A([Start]) --> B[Reader opens Unpaid Fines]
+    B --> C{Logged in as Reader?}
+    C -->|No| C1[Redirect Login] --> Z([End])
+    C -->|Yes| D[View fine details]
+    D --> E[Transfer payment via bank]
+    E --> F[Click Da thanh toan]
+    F --> G[Set fine status Cho xac nhan]
+    G --> Z([End])

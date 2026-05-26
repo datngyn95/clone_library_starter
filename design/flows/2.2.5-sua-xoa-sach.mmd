@@ -1,0 +1,16 @@
+flowchart TD
+    A([Start]) --> B[Librarian opens Book Detail]
+    B --> C{Authorized Librarian?}
+    C -->|No| C1[Access denied] --> Z([End])
+    C -->|Yes| D{Action?}
+    D -->|Edit| E[Update book info]
+    E --> F{Validation pass?}
+    F -->|No| F1[Show validation errors] --> E
+    F -->|Yes| G[Save changes] --> Z
+    D -->|Delete| H{Has active borrow order?}
+    H -->|Yes| H1[Block delete and show reason] --> Z
+    H -->|No| I[Confirm delete]
+    I --> J{Confirmed?}
+    J -->|No| Z
+    J -->|Yes| K[Delete book] --> Z
+    Z([End])

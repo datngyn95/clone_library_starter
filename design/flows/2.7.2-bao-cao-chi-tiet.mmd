@@ -1,0 +1,12 @@
+flowchart TD
+    A([Start]) --> B[Admin/Librarian opens Detailed Reports]
+    B --> C{Authorized role?}
+    C -->|No| C1[Access denied] --> Z([End])
+    C -->|Yes| D[Select report type: Books/Borrows/Fines/Lost-Damaged]
+    D --> E[Select time range Day/Week/Month/Quarter/Year]
+    E --> F[System queries and aggregates report data]
+    F --> G[Render charts and tables]
+    G --> H{Export CSV?}
+    H -->|No| Z
+    H -->|Yes| I[Generate and download CSV]
+    I --> Z([End])

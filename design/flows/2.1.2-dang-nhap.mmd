@@ -1,0 +1,18 @@
+flowchart TD
+    A([Start]) --> B[User opens Login page]
+    B --> C[Enter Email and Mat khau]
+    C --> D{Submit?}
+    D -->|No| C
+    D -->|Yes| E{Email format valid?}
+    E -->|No| E1[Show error Email] --> C
+    E -->|Yes| F{Password 8-16 chars?}
+    F -->|No| F1[Show error Password] --> C
+    F -->|Yes| G[System authenticates account]
+    G --> H{Credentials valid and account active?}
+    H -->|No| H1[Show login failed] --> C
+    H -->|Yes| I[Create JWT session 24h]
+    I --> J{Role?}
+    J -->|Reader| K[Redirect Reader Dashboard]
+    J -->|Librarian/Admin| L[Redirect Staff Dashboard]
+    K --> M([End])
+    L --> M

@@ -1,0 +1,14 @@
+flowchart TD
+    A([Start]) --> B[Reader opens Borrow History]
+    B --> C{Logged in as Reader?}
+    C -->|No| C1[Redirect Login] --> Z([End])
+    C -->|Yes| D[Load orders by statuses]
+    D --> E{Action?}
+    E -->|Filter by status| F[Apply status filter] --> D
+    E -->|View reject reason| G[Open rejection reason] --> D
+    E -->|Request return| H[Go to Return Request flow] --> Z
+    E -->|Gia han| I{Order not overdue and not renewed before?}
+    I -->|No| I1[Show cannot renew] --> D
+    I -->|Yes| J[Extend due date +7 days once] --> D
+    E -->|Exit| Z
+    Z([End])

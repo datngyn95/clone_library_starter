@@ -1,0 +1,16 @@
+flowchart TD
+    A([Start]) --> B[Reader opens Profile]
+    B --> C{Logged in as Reader?}
+    C -->|No| C1[Redirect Login / Access denied] --> Z([End])
+    C -->|Yes| D[Load profile data and borrow summary]
+    D --> E{Action?}
+    E -->|Update profile| F[Edit Ten, So dien thoai, Dia chi]
+    F --> G{Validation pass?}
+    G -->|No| G1[Show validation errors] --> F
+    G -->|Yes| H[Save profile changes] --> Y([End])
+    E -->|Change password| I[Enter old/new/confirm password]
+    I --> J{New password valid and confirm match?}
+    J -->|No| J1[Show validation errors] --> I
+    J -->|Yes| K[Update password] --> Y
+    E -->|View only| Y
+    Y --> Z([End])

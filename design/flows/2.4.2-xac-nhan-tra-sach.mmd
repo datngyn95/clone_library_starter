@@ -1,0 +1,17 @@
+flowchart TD
+    A([Start]) --> B[Librarian opens pending return tab]
+    B --> C{Authorized Librarian?}
+    C -->|No| C1[Access denied] --> Z([End])
+    C -->|Yes| D[Receive physical book]
+    D --> E[Click Xac nhan tra and inspect condition]
+    E --> F{Condition?}
+    F -->|Binh thuong| G[Set order Da tra; increase available; decrease borrowed] --> Z
+    F -->|Hu hong| H[Select fine level and enter note]
+    H --> I{Valid fine+note?}
+    I -->|No| I1[Show validation errors] --> H
+    I -->|Yes| J[Create damage fine and optional overdue fine; set Da tra] --> Z
+    F -->|Mat| K[Select fine level and enter note]
+    K --> L{Valid fine+note?}
+    L -->|No| L1[Show validation errors] --> K
+    L -->|Yes| M[Create lost-book fine; set Da tra] --> Z
+    Z([End])

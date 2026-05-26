@@ -1,0 +1,9 @@
+flowchart TD
+    A([Start]) --> B[Admin/Librarian opens Dashboard]
+    B --> C{Authorized role?}
+    C -->|No| C1[Access denied] --> Z([End])
+    C -->|Yes| D[Collect metrics from books, users, orders, fines]
+    D --> E[Compute totals and top 5 popular books]
+    E --> F[Show overdue reader list]
+    F --> G[Render dashboard widgets]
+    G --> Z([End])

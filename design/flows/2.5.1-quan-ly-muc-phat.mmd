@@ -1,0 +1,17 @@
+flowchart TD
+    A([Start]) --> B[Admin opens Fine Levels]
+    B --> C{Authorized Admin?}
+    C -->|No| C1[Access denied] --> Z([End])
+    C -->|Yes| D[Show fine level table]
+    D --> E{Action?}
+    E -->|Add| F[Enter ten muc phat, so tien, ngay phat]
+    F --> G{Validation pass?}
+    G -->|No| G1[Show errors] --> F
+    G -->|Yes| H[Create fine level] --> D
+    E -->|Edit inline| I[Update values]
+    I --> J{Validation pass?}
+    J -->|No| J1[Show errors] --> I
+    J -->|Yes| K[Save fine level] --> D
+    E -->|Delete| L[Delete selected fine level] --> D
+    E -->|Exit| Z
+    Z([End])

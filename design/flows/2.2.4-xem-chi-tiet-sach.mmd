@@ -1,0 +1,9 @@
+flowchart TD
+    A([Start]) --> B[User opens Book Detail]
+    B --> C[Show metadata, availability, borrowing history by role]
+    C --> D{User is Reader and logged in?}
+    D -->|No| Z([End])
+    D -->|Yes| E{Click Muon sach?}
+    E -->|No| Z
+    E -->|Yes| F[Go to Borrow Request flow]
+    F --> Z

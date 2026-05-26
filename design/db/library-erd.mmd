@@ -1,0 +1,130 @@
+erDiagram
+    USERS {
+        uuid id PK
+        string email UK
+        string password_hash
+        string full_name
+        string phone
+        string address
+        string role "READER | LIBRARIAN | ADMIN"
+        string status "PENDING_VERIFICATION | ACTIVE | DISABLED"
+        datetime email_verified_at
+        datetime joined_at
+        datetime created_at
+        datetime updated_at
+    }
+
+    EMAIL_VERIFICATION_TOKENS {
+        uuid id PK
+        uuid user_id FK
+        string token_hash UK
+        datetime expires_at
+        datetime used_at
+        datetime created_at
+    }
+
+    CATEGORIES {
+        uuid id PK
+        string name UK
+        datetime created_at
+        datetime updated_at
+    }
+
+    BOOKS {
+        uuid id PK
+        uuid category_id FK
+        uuid created_by_user_id FK
+        uuid updated_by_user_id FK
+        string title
+        string author
+        int publication_year
+        string isbn UK
+        string description
+        int total_copies
+        int available_copies
+        int borrowed_copies
+        int lost_copies
+        int damaged_copies
+        string status "AVAILABLE | UNAVAILABLE"
+        datetime created_at
+        datetime updated_at
+    }
+
+    BORROW_ORDERS {
+        uuid id PK
+        uuid reader_id FK
+        uuid book_id FK
+        uuid reviewed_by_user_id FK
+        string status "PENDING | BORROWED | OVERDUE | RETURNED | REJECTED"
+        int borrow_days
+        datetime requested_at
+        datetime borrowed_at
+        datetime due_at
+        datetime returned_at
+        boolean renewed
+        datetime renewed_at
+        string rejection_reason
+        datetime reviewed_at
+        datetime created_at
+        datetime updated_at
+    }
+
+    RETURN_REQUESTS {
+        uuid id PK
+        uuid borrow_order_id FK
+        uuid reader_id FK
+        uuid confirmed_by_user_id FK
+        string status "PENDING | CONFIRMED | REJECTED"
+        string book_condition "NORMAL | DAMAGED | LOST"
+        string note
+        datetime requested_at
+        datetime confirmed_at
+        datetime created_at
+        datetime updated_at
+    }
+
+    FINE_LEVELS {
+        uuid id PK
+        uuid created_by_user_id FK
+        string name UK
+        decimal amount
+        string reason_type "OVERDUE | DAMAGED | LOST | OTHER"
+        boolean active
+        datetime created_at
+        datetime updated_at
+    }
+
+    FINES {
+        uuid id PK
+        uuid reader_id FK
+        uuid borrow_order_id FK
+        uuid return_request_id FK
+        uuid fine_level_id FK
+        uuid confirmed_by_user_id FK
+        decimal amount
+        string reason
+        string status "UNPAID | PENDING_CONFIRMATION | PAID | REJECTED"
+        string payment_method "BANK_TRANSFER"
+        datetime paid_at
+        datetime confirmed_at
+        string rejection_reason
+        datetime created_at
+        datetime updated_at
+    }
+
+    USERS ||--o{ EMAIL_VERIFICATION_TOKENS : receives
+    USERS ||--o{ BOOKS : creates
+    USERS ||--o{ BOOKS : updates
+    CATEGORIES ||--o{ BOOKS : classifies
+    USERS ||--o{ BORROW_ORDERS : requests
+    USERS ||--o{ BORROW_ORDERS : reviews
+    BOOKS ||--o{ BORROW_ORDERS : borrowed_in
+    BORROW_ORDERS ||--o| RETURN_REQUESTS : has_return_request
+    USERS ||--o{ RETURN_REQUESTS : requests
+    USERS ||--o{ RETURN_REQUESTS : confirms
+    USERS ||--o{ FINE_LEVELS : configures
+    USERS ||--o{ FINES : owes
+    USERS ||--o{ FINES : confirms_payment
+    BORROW_ORDERS ||--o{ FINES : generates
+    RETURN_REQUESTS ||--o{ FINES : creates
+    FINE_LEVELS ||--o{ FINES : defines
